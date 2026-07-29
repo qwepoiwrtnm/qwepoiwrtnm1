@@ -32,7 +32,7 @@ export function MobileMenu({
             {nav.map((item) => (
               <li key={item.label}>
                 <Link
-                  to={item.to}
+                  to={item.to} hash={item.hash}
                   onClick={() => onOpenChange(false)}
                   className="block rounded-2xl px-4 py-3 text-base font-medium text-foreground transition-colors hover:bg-secondary"
                 >

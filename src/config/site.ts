@@ -31,21 +31,27 @@ export const brand = {
   supportEmail: env("VITE_SUPPORT_EMAIL") ?? "support@cutieclient.example",
 } as const;
 
-export const nav = [
+export interface NavItem {
+  label: string;
+  to: string;
+  hash?: string;
+}
+
+export const nav: NavItem[] = [
   { label: "Features", to: "/features" },
-  { label: "Preview", to: "/#preview" },
+  { label: "Preview", to: "/", hash: "preview" },
   { label: "FAQ", to: "/faq" },
   { label: "Status", to: "/status" },
   { label: "Support", to: "/support" },
-] as const;
+];
 
-export const footerNav = [
+export const footerNav: { title: string; links: NavItem[] }[] = [
   {
     title: "Product",
     links: [
       { label: "Download", to: "/downloads" },
       { label: "Features", to: "/features" },
-      { label: "Release notes", to: "/downloads#release-notes" },
+      { label: "Release notes", to: "/downloads", hash: "release-notes" },
       { label: "System status", to: "/status" },
     ],
   },
@@ -67,7 +73,7 @@ export const footerNav = [
       { label: "FAQ", to: "/faq" },
     ],
   },
-] as const;
+];
 
 export type PlatformId = "windows" | "macos";
 

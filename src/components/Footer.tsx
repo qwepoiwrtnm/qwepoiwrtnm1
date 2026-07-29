@@ -41,7 +41,7 @@ export function Footer() {
               {group.links.map((link) => (
                 <li key={link.label}>
                   <Link
-                    to={link.to}
+                    to={link.to} hash={link.hash}
                     className="text-sm text-muted-foreground transition-colors hover:text-foreground"
                   >
                     {link.label}

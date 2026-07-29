@@ -36,7 +36,7 @@ export function Navbar() {
           {nav.map((item) => (
             <li key={item.label}>
               <Link
-                to={item.to}
+                to={item.to} hash={item.hash}
                 className={cn(
                   "rounded-full px-3.5 py-2 text-sm font-medium transition-colors",
                   pathname === item.to
