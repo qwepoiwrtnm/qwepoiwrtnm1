@@ -1,7 +1,7 @@
-# Cutie Client &lt;3 — product website
+# nihaoooo &lt;3 — product website
 
-A production-quality marketing and download site for **Cutie Client &lt;3**, an
-independent Minecraft client for Windows and macOS.
+A production-quality marketing and download site for **nihaoooo &lt;3**, an
+independent nihaoo client for Windows and macOS.
 
 > This repository is a **preview/mock build**. Statistics, testimonials,
 > screenshots, release notes and status data are clearly marked in
