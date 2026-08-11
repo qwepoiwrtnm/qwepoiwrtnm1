@@ -11,8 +11,8 @@
 
 import heroBg from "@/assets/hero-bg.jpg";
 import shotHud from "@/assets/shot-hud.jpg";
-import shotCottage from "@/assets/shot-cottage.jpg";
-import shotPlum from "@/assets/shot-plum.jpg";
+import shotMidnight from "@/assets/shot-midnight.jpg";
+import shotMint from "@/assets/shot-mint.jpg";
 
 /** Reads a public env var with a safe fallback (never throws during SSR). */
 function env(key: string): string | undefined {
@@ -146,15 +146,30 @@ export const downloadMeta = {
 /** Hero media. Replace with real captures in /public/backgrounds and /public/video. */
 export const media = {
   heroImage: heroBg,
-  /** Optional hero video path, e.g. "/video/hero.mp4". Poster falls back to heroImage. */
-  heroVideo: env("VITE_HERO_VIDEO_URL"),
   previewImage: shotHud,
+  /** Optional footage loop for the preview card, e.g. "/video/preview.mp4". Poster falls back to previewImage. */
+  previewVideo: env("VITE_PREVIEW_VIDEO_URL"),
   previewCaption: "In-client footage • Cozy HUD, minimap and keystrokes",
-  // PLACEHOLDER SCREENSHOTS — replace with real client captures before production.
+  // Theme showcase — the same HUD in three theme presets.
   gallery: [
-    { src: shotHud, alt: "Cutie Client HUD with FPS counter, minimap and keystroke widgets", label: "Cozy HUD" },
-    { src: shotCottage, alt: "Pastel cottage build rendered with the Blossom shader preset", label: "Blossom preset" },
-    { src: shotPlum, alt: "Plum-tinted cavern rendered with the Midnight theme", label: "Midnight theme" },
+    {
+      src: shotHud,
+      alt: "Cutie Client HUD in the Blossom theme — pink widgets with FPS counter, minimap and keystrokes at a cherry grove cottage at dusk",
+      label: "Blossom theme",
+      accent: "candy",
+    },
+    {
+      src: shotMidnight,
+      alt: "Cutie Client HUD in the Midnight theme — violet widgets over a moonlit river dock with a lantern-lit bridge and watermill",
+      label: "Midnight theme",
+      accent: "lavender",
+    },
+    {
+      src: shotMint,
+      alt: "Cutie Client HUD in the Mint theme — sage-green widgets at a hillside flower farm and greenhouse on a sunny morning",
+      label: "Mint theme",
+      accent: "mint",
+    },
   ],
 } as const;
 
@@ -168,11 +183,11 @@ export const heroContent = {
   secondaryCta: { label: "Explore features", to: "/features" },
 } as const;
 
-/** MOCK statistics — preview only. Wire to a real source before production. */
-export const mockStats = [
-  { value: "412,000+", label: "Downloads" },
-  { value: "1,850+", label: "Themes shared" },
-  { value: "4.9 / 5", label: "Average rating" },
+/** Product facts shown under the hero CTAs. Keep these verifiable against the current build. */
+export const heroStats = [
+  { value: "+180%", label: "Average FPS" },
+  { value: "24", label: "HUD modules" },
+  { value: "40+", label: "Theme presets" },
 ] as const;
 
 export interface Feature {

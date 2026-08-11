@@ -7,6 +7,7 @@ import {
   ShieldCheck,
   type LucideIcon,
 } from "lucide-react";
+import { trackGlow } from "@/lib/glow";
 import { features, highlights } from "@/config/site";
 import { GlassPanel } from "@/components/GlassPanel";
 import { cn } from "@/lib/utils";
@@ -31,6 +32,7 @@ export function FeatureGrid({ className }: { className?: string }) {
           <GlassPanel
             key={feature.title}
             as="article"
+            onMouseMove={trackGlow}
             className={cn(
               "group flex flex-col gap-3 p-6 transition-transform duration-300 hover:-translate-y-1",
               wide && "md:col-span-2 lg:col-span-2 lg:row-span-1",
@@ -42,7 +44,15 @@ export function FeatureGrid({ className }: { className?: string }) {
                 className="pointer-events-none absolute -top-24 -right-16 size-64 rounded-full bg-[radial-gradient(circle,oklch(0.7_0.24_352_/_28%),transparent_70%)]"
               />
             ) : null}
-            <span className="grid size-11 place-items-center rounded-2xl border border-border bg-[oklch(1_0_0_/_6%)] text-blush">
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+              style={{
+                background:
+                  "radial-gradient(220px circle at var(--mx, 50%) var(--my, 50%), oklch(1 0 0 / 7%), transparent 65%)",
+              }}
+            />
+            <span className="grid size-11 place-items-center rounded-2xl border border-border bg-[oklch(1_0_0_/_6%)] text-blush transition-all duration-300 group-hover:scale-110 group-hover:text-candy group-hover:shadow-[0_0_24px_-6px_oklch(0.7_0.24_352_/_60%)]">
               <Icon className="size-5" aria-hidden="true" />
             </span>
             <h3

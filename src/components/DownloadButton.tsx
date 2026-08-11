@@ -64,7 +64,7 @@ export function DownloadButton({
           "bg-[image:var(--gradient-candy)] font-semibold text-primary-foreground",
           "border border-[oklch(1_0_0_/_30%)] shadow-[var(--shadow-glow)]",
           "transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_24px_70px_-16px_oklch(0.68_0.22_350_/_75%)]",
-          "active:translate-y-0 active:brightness-95 sm:w-auto",
+          "active:translate-y-0 active:scale-[0.98] active:brightness-95 sm:w-auto",
           missingUrl && "cursor-not-allowed opacity-70 hover:translate-y-0",
           size === "lg" ? "px-8 py-4 text-base sm:text-lg" : "px-6 py-3 text-sm",
         )}

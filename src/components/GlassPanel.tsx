@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
-import type { ReactNode } from "react";
+import type { HTMLAttributes, ReactNode } from "react";
 
-interface GlassPanelProps {
+interface GlassPanelProps extends HTMLAttributes<HTMLElement> {
   children: ReactNode;
   className?: string;
   /** Adds the soft inner top highlight used across the liquid-glass surfaces. */
@@ -14,9 +14,11 @@ export function GlassPanel({
   className,
   highlight = true,
   as: Tag = "div",
+  ...rest
 }: GlassPanelProps) {
   return (
     <Tag
+      {...rest}
       className={cn(
         "glass relative overflow-hidden rounded-3xl",
         highlight &&

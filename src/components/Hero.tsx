@@ -1,29 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Users } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { DownloadButton } from "@/components/DownloadButton";
 import { PlatformSelector } from "@/components/PlatformSelector";
 import { ParticleBackground } from "@/components/ParticleBackground";
 import { ProductPreview } from "@/components/ProductPreview";
-import { heroContent, media, mockStats } from "@/config/site";
-
-/** MOCK live player counter — preview only, replace with a real endpoint. */
-function useMockOnline(base = 2418) {
-  const [online, setOnline] = useState(base);
-  useEffect(() => {
-    const id = window.setInterval(() => {
-      setOnline((v) => {
-        const drift = Math.round((Math.random() - 0.45) * 26);
-        return Math.min(base + 340, Math.max(base - 260, v + drift));
-      });
-    }, 4200);
-    return () => window.clearInterval(id);
-  }, [base]);
-  return online;
-}
+import { heroContent, heroStats, media } from "@/config/site";
 
 export function Hero() {
-  const online = useMockOnline();
   const sectionRef = useRef<HTMLElement | null>(null);
   const [pointer, setPointer] = useState({ x: 50, y: 40 });
 
@@ -46,7 +30,7 @@ export function Hero() {
 
   return (
     <section ref={sectionRef} className="relative isolate overflow-hidden">
-      {/* Background media — low-bandwidth friendly image, optional video overlay */}
+      {/* Background media — low-bandwidth friendly still image */}
       <div aria-hidden="true" className="absolute inset-0 -z-20">
         <img
           src={media.heroImage}
@@ -57,17 +41,6 @@ export function Hero() {
           decoding="async"
           className="size-full object-cover"
         />
-        {media.heroVideo ? (
-          <video
-            className="absolute inset-0 size-full object-cover"
-            src={media.heroVideo}
-            poster={media.heroImage}
-            autoPlay
-            muted
-            loop
-            playsInline
-          />
-        ) : null}
       </div>
 
       {/* Cinematic plum + pink overlay and vignette */}
@@ -108,7 +81,7 @@ export function Hero() {
             <DownloadButton />
             <Link
               to={heroContent.secondaryCta.to}
-              className="glass inline-flex items-center justify-center gap-2 rounded-full px-6 py-4 text-base font-semibold transition-colors hover:bg-[oklch(1_0_0_/_10%)]"
+              className="glass inline-flex items-center justify-center gap-2 rounded-full px-6 py-4 text-base font-semibold transition-[background-color,transform] hover:bg-[oklch(1_0_0_/_10%)] active:scale-[0.98]"
             >
               {heroContent.secondaryCta.label}
               <ArrowRight className="size-4" aria-hidden="true" />
@@ -120,7 +93,7 @@ export function Hero() {
           <p className="text-xs text-muted-foreground">{heroContent.availability}</p>
 
           <dl className="mt-2 grid w-full grid-cols-3 gap-4 border-t border-border pt-6">
-            {mockStats.map((stat) => (
+            {heroStats.map((stat) => (
               <div key={stat.label} className="min-w-0">
                 <dt className="sr-only">{stat.label}</dt>
                 <dd className="font-display text-xl font-extrabold sm:text-2xl">{stat.value}</dd>
@@ -130,17 +103,12 @@ export function Hero() {
               </div>
             ))}
           </dl>
-
-          <p className="inline-flex items-center gap-2 text-xs text-muted-foreground">
-            <Users className="size-3.5 text-mint" aria-hidden="true" />
-            <span aria-live="polite">
-              {online.toLocaleString()} players using Cutie Client right now
-            </span>
-          </p>
         </div>
 
         <div className="min-w-0 animate-rise-in [animation-delay:120ms]">
-          <ProductPreview />
+          <div className="animate-float-soft">
+            <ProductPreview />
+          </div>
         </div>
       </div>
     </section>

@@ -10,6 +10,7 @@ import {
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
+import { brand } from "@/config/site";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
 function NotFoundComponent() {
@@ -99,7 +100,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "theme-color", content: "#1b0f1c" },
       { property: "og:site_name", content: "Cutie Client <3" },
       { property: "og:type", content: "website" },
+      { property: "og:image", content: `${brand.siteUrl}/og.jpg` },
+      { property: "og:image:width", content: "1920" },
+      { property: "og:image:height", content: "1088" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: `${brand.siteUrl}/og.jpg` },
     ],
     links: [
       {
@@ -112,8 +117,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap",
       },
+      { rel: "icon", href: "/favicon.ico", sizes: "32x32" },
+      { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
+      { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
       { rel: "manifest", href: "/site.webmanifest" },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
     ],
   }),
 

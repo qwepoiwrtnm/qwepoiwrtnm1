@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout, PageHero } from "@/components/SiteLayout";
 import { StatusDashboard } from "@/components/StatusDashboard";
+import { Reveal } from "@/components/Reveal";
 
 export const Route = createFileRoute("/status")({
   head: () => ({
@@ -32,7 +33,9 @@ function Status() {
         description="Service health for downloads, accounts, email and the client itself."
       />
       <section className="mx-auto max-w-4xl px-5 pb-24 sm:px-8">
-        <StatusDashboard />
+        <Reveal>
+          <StatusDashboard />
+        </Reveal>
       </section>
     </SiteLayout>
   );

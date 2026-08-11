@@ -2,6 +2,9 @@ import type { ReactNode } from "react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { AmbientGlow } from "@/components/AmbientGlow";
+import { ClickSparkles } from "@/components/ClickSparkles";
+import { ParticleBackground } from "@/components/ParticleBackground";
+import { media } from "@/config/site";
 
 /** Shared page chrome: skip link, nav, single <main>, footer. */
 export function SiteLayout({ children }: { children: ReactNode }) {
@@ -14,6 +17,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
         Skip to content
       </a>
       <AmbientGlow className="fixed" />
+      <ClickSparkles />
       <Navbar />
       <main id="main" className="flex-1">
         {children}
@@ -36,10 +40,27 @@ export function PageHero({
   children?: ReactNode;
 }) {
   return (
-    <section className="relative px-5 pt-32 pb-12 sm:px-8 sm:pt-40">
-      <div className="mx-auto flex max-w-4xl flex-col items-center gap-5 text-center">
+    <section className="relative isolate overflow-hidden px-5 pt-32 pb-14 sm:px-8 sm:pt-40">
+      {/* Quiet echo of the home hero: same world, heavily veiled so text leads */}
+      <div aria-hidden="true" className="absolute inset-0 -z-20">
+        <img
+          src={media.heroImage}
+          alt=""
+          width={1920}
+          height={1088}
+          decoding="async"
+          className="size-full object-cover object-[50%_30%]"
+        />
+      </div>
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,oklch(0.11_0.03_315_/_92%),oklch(0.13_0.035_320_/_88%)_55%,var(--background))]"
+      />
+      <ParticleBackground className="-z-10" count={14} />
+      <div className="mx-auto flex max-w-4xl flex-col items-center gap-5 text-center animate-rise-in">
         {eyebrow ? (
-          <span className="glass rounded-full px-4 py-1.5 text-xs font-semibold tracking-[0.24em] text-blush uppercase">
+          <span className="glass inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-semibold tracking-[0.24em] text-blush uppercase">
+            <span aria-hidden="true" className="size-1.5 rounded-full bg-candy" />
             {eyebrow}
           </span>
         ) : null}

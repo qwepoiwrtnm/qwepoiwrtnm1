@@ -5,6 +5,8 @@ import { GlassPanel } from "@/components/GlassPanel";
 import { DownloadButton } from "@/components/DownloadButton";
 import { PlatformIcon } from "@/components/PlatformIcon";
 import { SectionHeading } from "@/components/SectionHeading";
+import { Reveal } from "@/components/Reveal";
+import { trackGlow } from "@/lib/glow";
 import {
   downloadMeta,
   legal,
@@ -37,9 +39,17 @@ export const Route = createFileRoute("/downloads")({
 function PlatformCard({ id }: { id: PlatformId }) {
   const config = platforms[id];
   return (
-    <GlassPanel as="article" className="flex flex-col gap-5 p-7 sm:p-8">
+    <GlassPanel as="article" onMouseMove={trackGlow} className="group flex h-full flex-col gap-5 p-7 sm:p-8">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+        style={{
+          background:
+            "radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), oklch(1 0 0 / 6%), transparent 65%)",
+        }}
+      />
       <div className="flex items-center gap-3">
-        <span className="grid size-11 place-items-center rounded-2xl border border-border bg-[oklch(1_0_0_/_6%)] text-blush">
+        <span className="grid size-11 place-items-center rounded-2xl border border-border bg-[oklch(1_0_0_/_6%)] text-blush transition-transform duration-300 group-hover:scale-110">
           <PlatformIcon platform={id} />
         </span>
         <div className="min-w-0">
@@ -109,35 +119,43 @@ function Downloads() {
 
       <section aria-label="Installers" className="px-5 pb-16 sm:px-8">
         <div className="mx-auto grid max-w-5xl gap-5 lg:grid-cols-2">
-          <PlatformCard id="windows" />
-          <PlatformCard id="macos" />
+          <Reveal>
+            <PlatformCard id="windows" />
+          </Reveal>
+          <Reveal delay={120}>
+            <PlatformCard id="macos" />
+          </Reveal>
         </div>
       </section>
 
       <section id="release-notes" aria-labelledby="notes-heading" className="scroll-mt-28 px-5 pb-16 sm:px-8">
         <div className="mx-auto max-w-5xl">
-          <SectionHeading
-            id="notes-heading"
-            align="left"
-            eyebrow="Release notes"
-            title="What changed"
-            description="Every build is documented here. Preview data in this mock build."
-          />
+          <Reveal>
+            <SectionHeading
+              id="notes-heading"
+              align="left"
+              eyebrow="Release notes"
+              title="What changed"
+              description="Every build is documented here. Preview data in this mock build."
+            />
+          </Reveal>
           <div className="mt-8 grid gap-4">
-            {releaseNotes.map((release) => (
-              <GlassPanel key={release.version} className="p-6">
+            {releaseNotes.map((release, i) => (
+              <Reveal key={release.version} delay={i * 100}>
+                <GlassPanel className="p-6">
                 <div className="flex flex-wrap items-baseline gap-3">
                   <h3 className="font-display text-lg font-bold">v{release.version}</h3>
                   <time className="text-xs text-muted-foreground" dateTime={release.date}>
                     {release.date}
                   </time>
                 </div>
-                <ul className="mt-3 space-y-1 text-sm text-muted-foreground">
-                  {release.items.map((item) => (
-                    <li key={item}>• {item}</li>
-                  ))}
-                </ul>
-              </GlassPanel>
+                  <ul className="mt-3 space-y-1 text-sm text-muted-foreground">
+                    {release.items.map((item) => (
+                      <li key={item}>• {item}</li>
+                    ))}
+                  </ul>
+                </GlassPanel>
+              </Reveal>
             ))}
             {downloadMeta.releaseNotesUrl ? (
               <a
@@ -158,34 +176,40 @@ function Downloads() {
           <h2 id="safety-heading" className="sr-only">
             Security and transparency
           </h2>
-          <GlassPanel className="p-6">
-            <ShieldCheck className="size-5 text-mint" aria-hidden="true" />
-            <h3 className="mt-3 font-display font-bold">Signed installers</h3>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Windows builds are Authenticode-signed and macOS builds are notarized, so your system
-              can show the publisher.
-            </p>
-          </GlassPanel>
-          <GlassPanel className="p-6">
-            <FileText className="size-5 text-blush" aria-hidden="true" />
-            <h3 className="mt-3 font-display font-bold">Verify your file</h3>
-            <p className="mt-1 text-sm text-muted-foreground">
-              When a checksum is published for a release it appears above. Compare it with{" "}
-              <code className="font-mono text-xs">shasum -a 256</code> or{" "}
-              <code className="font-mono text-xs">certutil -hashfile</code>.
-            </p>
-          </GlassPanel>
-          <GlassPanel className="p-6">
-            <LifeBuoy className="size-5 text-lavender" aria-hidden="true" />
-            <h3 className="mt-3 font-display font-bold">Stuck installing?</h3>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Our{" "}
-              <Link to="/support" className="text-blush underline underline-offset-4">
-                support page
-              </Link>{" "}
-              covers the common Windows SmartScreen and macOS Gatekeeper prompts.
-            </p>
-          </GlassPanel>
+          <Reveal>
+            <GlassPanel className="h-full p-6">
+              <ShieldCheck className="size-5 text-mint" aria-hidden="true" />
+              <h3 className="mt-3 font-display font-bold">Signed installers</h3>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Windows builds are Authenticode-signed and macOS builds are notarized, so your system
+                can show the publisher.
+              </p>
+            </GlassPanel>
+          </Reveal>
+          <Reveal delay={100}>
+            <GlassPanel className="h-full p-6">
+              <FileText className="size-5 text-blush" aria-hidden="true" />
+              <h3 className="mt-3 font-display font-bold">Verify your file</h3>
+              <p className="mt-1 text-sm text-muted-foreground">
+                When a checksum is published for a release it appears above. Compare it with{" "}
+                <code className="font-mono text-xs">shasum -a 256</code> or{" "}
+                <code className="font-mono text-xs">certutil -hashfile</code>.
+              </p>
+            </GlassPanel>
+          </Reveal>
+          <Reveal delay={200}>
+            <GlassPanel className="h-full p-6">
+              <LifeBuoy className="size-5 text-lavender" aria-hidden="true" />
+              <h3 className="mt-3 font-display font-bold">Stuck installing?</h3>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Our{" "}
+                <Link to="/support" className="text-blush underline underline-offset-4">
+                  support page
+                </Link>{" "}
+                covers the common Windows SmartScreen and macOS Gatekeeper prompts.
+              </p>
+            </GlassPanel>
+          </Reveal>
           <p className="text-xs leading-relaxed text-muted-foreground md:col-span-3">
             {legal.disclaimer}
           </p>
