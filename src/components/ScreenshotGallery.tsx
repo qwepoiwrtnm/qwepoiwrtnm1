@@ -1,0 +1,141 @@
+import { useRef, useState, type KeyboardEvent } from "react";
+import { media } from "@/config/site";
+import { GlassPanel } from "@/components/GlassPanel";
+import { cn } from "@/lib/utils";
+
+const accentDot: Record<string, string> = {
+  candy: "bg-candy",
+  lavender: "bg-lavender",
+  mint: "bg-mint",
+};
+
+const accentBorder: Record<string, string> = {
+  candy: "border-candy",
+  lavender: "border-lavender",
+  mint: "border-mint",
+};
+
+const accentGlow: Record<string, string> = {
+  candy: "oklch(0.7 0.24 352 / 20%)",
+  lavender: "oklch(0.78 0.09 305 / 20%)",
+  mint: "oklch(0.83 0.14 165 / 15%)",
+};
+
+/** Interface gallery. PLACEHOLDER captures — replace before production. */
+export function ScreenshotGallery() {
+  const shots = media.gallery;
+  const [index, setIndex] = useState(0);
+  const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
+
+  const select = (i: number) => {
+    const next = (i + shots.length) % shots.length;
+    setIndex(next);
+    tabRefs.current[next]?.focus();
+  };
+
+  const onTablistKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    const handlers: Record<string, () => void> = {
+      ArrowRight: () => select(index + 1),
+      ArrowLeft: () => select(index - 1),
+      Home: () => select(0),
+      End: () => select(shots.length - 1),
+    };
+    const handler = handlers[event.key];
+    if (handler) {
+      event.preventDefault();
+      handler();
+    }
+  };
+
+  const active = shots[index];
+
+  return (
+    <GlassPanel className="p-3 sm:p-4">
+      {/* Theme-reactive ambient tint — follows the selected theme's accent color */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10 transition-[background] duration-700"
+        style={{
+          background: `radial-gradient(90% 70% at 50% 0%, ${accentGlow[active.accent]}, transparent 70%)`,
+        }}
+      />
+      <figure>
+        <div
+          id="gallery-image"
+          role="tabpanel"
+          aria-label={shots[index].label}
+          className="relative aspect-16/9 w-full overflow-hidden rounded-2xl border border-border"
+        >
+          {shots.map((shot, i) => (
+            <img
+              key={shot.label}
+              src={shot.src}
+              alt={i === index ? shot.alt : ""}
+              width={1600}
+              height={900}
+              loading={i === 0 ? "eager" : "lazy"}
+              decoding="async"
+              aria-hidden={i !== index}
+              className={cn(
+                "absolute inset-0 size-full object-cover transition-opacity duration-500",
+                i === index ? "opacity-100 animate-ken-burns" : "opacity-0",
+              )}
+            />
+          ))}
+        </div>
+        <figcaption className="mt-3 flex items-baseline justify-between gap-3 px-1 text-sm text-muted-foreground">
+          <span>{shots[index].alt}</span>
+          <span className="shrink-0 font-mono text-xs tabular-nums">
+            {index + 1} / {shots.length}
+          </span>
+        </figcaption>
+      </figure>
+
+      <div
+        role="tablist"
+        aria-label="Screenshot gallery"
+        onKeyDown={onTablistKeyDown}
+        className="mt-3 grid grid-cols-3 gap-2 sm:gap-3"
+      >
+        {shots.map((shot, i) => (
+          <button
+            key={shot.label}
+            ref={(el) => {
+              tabRefs.current[i] = el;
+            }}
+            type="button"
+            role="tab"
+            aria-selected={i === index}
+            aria-controls="gallery-image"
+            aria-label={`Show screenshot: ${shot.label}`}
+            tabIndex={i === index ? 0 : -1}
+            onClick={() => setIndex(i)}
+            className={cn(
+              "group relative overflow-hidden rounded-xl border transition-all duration-300 active:scale-[0.97]",
+              i === index
+                ? cn(accentBorder[shot.accent], "shadow-[var(--shadow-glow)]")
+                : "border-border opacity-60 hover:opacity-100 focus-visible:opacity-100",
+            )}
+          >
+            <img
+              src={shot.src}
+              alt=""
+              width={480}
+              height={270}
+              loading="lazy"
+              decoding="async"
+              className="aspect-16/9 w-full object-cover transition-transform duration-300 group-hover:scale-[1.04]"
+            />
+            <span
+              aria-hidden="true"
+              className="absolute inset-x-0 bottom-0 flex items-center gap-1.5 bg-[linear-gradient(0deg,oklch(0.1_0.03_318_/_85%),transparent)] px-2.5 pt-8 pb-2 text-left text-xs font-semibold text-foreground"
+            >
+              <span className={cn("size-1.5 shrink-0 rounded-full", accentDot[shot.accent])} />
+              {shot.label}
+            </span>
+          </button>
+        ))}
+      </div>
+    </GlassPanel>
+  );
+}
