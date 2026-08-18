@@ -88,7 +88,7 @@ function Support() {
                 autoComplete="email"
                 aria-invalid={errors.email ? true : undefined}
                 aria-describedby={errors.email ? "email-error" : undefined}
-                className="min-h-12 rounded-2xl border border-input bg-[oklch(1_0_0_/_5%)] px-4 text-base"
+                className="min-h-12 rounded-md border border-input bg-secondary px-4 text-base focus:border-candy"
               />
               {errors.email ? (
                 <p id="email-error" className="text-xs text-destructive">
@@ -105,7 +105,7 @@ function Support() {
                 id="topic"
                 name="topic"
                 defaultValue="install"
-                className="min-h-12 rounded-2xl border border-input bg-[oklch(1_0_0_/_5%)] px-4 text-base text-foreground"
+                className="min-h-12 rounded-md border border-input bg-secondary px-4 text-base text-foreground focus:border-candy"
               >
                 {topics.map((topic) => (
                   <option key={topic.value} value={topic.value} className="bg-card">
@@ -125,7 +125,7 @@ function Support() {
                 rows={6}
                 aria-invalid={errors.message ? true : undefined}
                 aria-describedby={errors.message ? "message-error" : "message-hint"}
-                className="rounded-2xl border border-input bg-[oklch(1_0_0_/_5%)] p-4 text-base"
+                className="rounded-md border border-input bg-secondary p-4 text-base focus:border-candy"
               />
               <p id="message-hint" className="text-xs text-muted-foreground">
                 Include your platform, client version and what you were doing.
@@ -140,7 +140,7 @@ function Support() {
             <button
               type="submit"
               disabled={pending}
-              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[image:var(--gradient-candy)] px-6 font-semibold text-primary-foreground shadow-[var(--shadow-glow)] transition-transform duration-300 hover:-translate-y-0.5 disabled:opacity-70"
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md bg-candy px-6 font-semibold text-black transition-transform duration-200 hover:-translate-y-0.5 disabled:opacity-70"
             >
               {pending ? <Loader2 className="size-4 animate-spin" aria-hidden="true" /> : null}
               {pending ? "Sending…" : "Send message"}
@@ -148,8 +148,8 @@ function Support() {
           </form>
 
           {result ? (
-            <div role="status" className="mt-5 rounded-2xl border border-border p-4 text-sm">
-              <p className={result.ok ? "text-mint" : "text-amber-status"}>{result.message}</p>
+            <div role="status" className="mt-5 rounded-md border border-border bg-secondary p-4 text-sm">
+              <p className={result.ok ? "text-candy" : "text-amber-status"}>{result.message}</p>
               {result.setup ? (
                 <ul className="mt-2 space-y-1 text-xs text-muted-foreground">
                   {result.setup.map((s) => (
@@ -163,12 +163,12 @@ function Support() {
 
         <div className="grid gap-5">
           <GlassPanel className="p-7">
-            <Mail className="size-5 text-blush" aria-hidden="true" />
+            <Mail className="size-5 text-candy" aria-hidden="true" />
             <h2 className="mt-3 font-display text-lg font-bold">Email us</h2>
             <p className="mt-1 text-sm text-muted-foreground">
               <a
                 href={`mailto:${brand.supportEmail}`}
-                className="text-blush underline underline-offset-4"
+                className="text-candy underline underline-offset-4"
               >
                 {brand.supportEmail}
               </a>
@@ -178,12 +178,12 @@ function Support() {
           </GlassPanel>
 
           <GlassPanel className="p-7">
-            <BookOpen className="size-5 text-lavender" aria-hidden="true" />
+            <BookOpen className="size-5 text-candy" aria-hidden="true" />
             <h2 className="mt-3 font-display text-lg font-bold">Common fixes</h2>
             <ul className="mt-2 space-y-2 text-sm text-muted-foreground">
               <li>
-                <strong className="text-foreground">Windows SmartScreen:</strong> choose “More info”
-                then “Run anyway” — the publisher name should read Cutie Client.
+                <strong className="text-foreground">Windows SmartScreen:</strong> choose "More info"
+                then "Run anyway" — the publisher name should read Cutie Client.
               </li>
               <li>
                 <strong className="text-foreground">macOS Gatekeeper:</strong> right-click the app
@@ -197,11 +197,11 @@ function Support() {
           </GlassPanel>
 
           <GlassPanel className="p-7">
-            <MessageSquare className="size-5 text-mint" aria-hidden="true" />
+            <MessageSquare className="size-5 text-candy" aria-hidden="true" />
             <h2 className="mt-3 font-display text-lg font-bold">Community</h2>
             <p className="mt-1 text-sm text-muted-foreground">
               Join the community server linked in the footer, or browse the{" "}
-              <Link to="/faq" className="text-blush underline underline-offset-4">
+              <Link to="/faq" className="text-candy underline underline-offset-4">
                 FAQ
               </Link>
               .

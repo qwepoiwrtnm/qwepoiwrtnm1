@@ -40,7 +40,7 @@ function ForgotPassword() {
           fields={[{ name: "email", label: "Email", type: "email", autoComplete: "email" }]}
           action={(values) => submit({ data: { email: values.email } })}
           footer={
-            <Link to="/signin" className="text-blush underline underline-offset-4">
+            <Link to="/signin" className="text-candy underline underline-offset-4">
               Back to sign in
             </Link>
           }

@@ -9,7 +9,7 @@ export function InstallationSteps() {
           <GlassPanel className="h-full p-6">
             <span
               aria-hidden="true"
-              className="font-display text-4xl font-extrabold text-[oklch(0.7_0.24_352_/_45%)]"
+              className="font-display text-4xl font-extrabold text-candy/40"
             >
               {String(i + 1).padStart(2, "0")}
             </span>

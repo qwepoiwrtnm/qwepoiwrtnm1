@@ -4,27 +4,26 @@ import type { HTMLAttributes, ReactNode } from "react";
 interface GlassPanelProps extends HTMLAttributes<HTMLElement> {
   children: ReactNode;
   className?: string;
-  /** Adds the soft inner top highlight used across the liquid-glass surfaces. */
+  /** Kept for API compat — no longer renders a highlight. */
   highlight?: boolean;
   as?: "div" | "section" | "article" | "aside";
 }
 
+/**
+ * Flat surface panel. Kept the `GlassPanel` name for import compatibility,
+ * but it now renders a solid card with a thin border — no glass, no blur.
+ */
 export function GlassPanel({
   children,
   className,
-  highlight = true,
+  highlight = false,
   as: Tag = "div",
   ...rest
 }: GlassPanelProps) {
   return (
     <Tag
       {...rest}
-      className={cn(
-        "glass relative overflow-hidden rounded-3xl",
-        highlight &&
-          "before:pointer-events-none before:absolute before:inset-x-0 before:top-0 before:h-24 before:bg-[image:var(--glass-highlight)]",
-        className,
-      )}
+      className={cn("surface rounded-md", className)}
     >
       {children}
     </Tag>

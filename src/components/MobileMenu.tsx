@@ -8,10 +8,6 @@ import {
 } from "@/components/ui/sheet";
 import { nav, brand } from "@/config/site";
 
-/**
- * Accessible mobile navigation. Radix Sheet provides focus trapping,
- * escape-to-close and correct dialog semantics.
- */
 export function MobileMenu({
   open,
   onOpenChange,
@@ -21,7 +17,7 @@ export function MobileMenu({
 }) {
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent side="right" className="glass-strong w-[88vw] max-w-sm border-l">
+      <SheetContent side="right" className="surface-strong w-[88vw] max-w-sm border-l">
         <SheetHeader className="text-left">
           <SheetTitle className="font-display">{brand.fullName}</SheetTitle>
           <SheetDescription>{brand.tagline}</SheetDescription>
@@ -34,7 +30,7 @@ export function MobileMenu({
                 <Link
                   to={item.to} hash={item.hash}
                   onClick={() => onOpenChange(false)}
-                  className="block rounded-2xl px-4 py-3 text-base font-medium text-foreground transition-colors hover:bg-secondary"
+                  className="block rounded-md px-4 py-3 text-base font-medium text-foreground transition-colors hover:bg-secondary"
                 >
                   {item.label}
                 </Link>
@@ -44,7 +40,7 @@ export function MobileMenu({
               <Link
                 to="/signin"
                 onClick={() => onOpenChange(false)}
-                className="block rounded-2xl px-4 py-3 text-base font-medium text-foreground transition-colors hover:bg-secondary"
+                className="block rounded-md px-4 py-3 text-base font-medium text-foreground transition-colors hover:bg-secondary"
               >
                 Sign in
               </Link>
@@ -54,7 +50,7 @@ export function MobileMenu({
           <Link
             to="/downloads"
             onClick={() => onOpenChange(false)}
-            className="mt-6 flex min-h-12 items-center justify-center rounded-full bg-[image:var(--gradient-candy)] px-6 text-base font-semibold text-primary-foreground shadow-[var(--shadow-glow)]"
+            className="mt-6 flex min-h-12 items-center justify-center rounded-md bg-candy px-6 text-base font-semibold text-black"
           >
             Download
           </Link>

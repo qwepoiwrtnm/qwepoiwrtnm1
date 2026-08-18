@@ -38,13 +38,13 @@ function Account() {
           <div className="mt-5 flex flex-wrap gap-3">
             <Link
               to="/signin"
-              className="inline-flex min-h-11 items-center rounded-full bg-[image:var(--gradient-candy)] px-5 text-sm font-semibold text-primary-foreground"
+              className="inline-flex min-h-11 items-center rounded-md bg-candy px-5 text-sm font-semibold text-black"
             >
               Sign in
             </Link>
             <Link
               to="/signup"
-              className="inline-flex min-h-11 items-center rounded-full border border-border px-5 text-sm font-medium transition-colors hover:bg-secondary"
+              className="inline-flex min-h-11 items-center rounded-md border border-border px-5 text-sm font-medium transition-colors hover:bg-secondary"
             >
               Create account
             </Link>
@@ -69,7 +69,7 @@ function Account() {
             Deletion removes your email, verification records and preferences within 30 days. It
             does not affect any copy of Cutie Client you've already installed. Send a deletion
             request from the{" "}
-            <Link to="/support" className="text-blush underline underline-offset-4">
+            <Link to="/support" className="text-candy underline underline-offset-4">
               support page
             </Link>{" "}
             using the address on your account.

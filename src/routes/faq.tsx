@@ -35,7 +35,7 @@ function Faq() {
         <FAQAccordion />
         <p className="mt-8 text-sm text-muted-foreground">
           Didn't find your answer?{" "}
-          <Link to="/support" className="text-blush underline underline-offset-4">
+          <Link to="/support" className="text-candy underline underline-offset-4">
             Contact support
           </Link>
           .

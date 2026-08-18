@@ -6,7 +6,6 @@ import { DownloadButton } from "@/components/DownloadButton";
 import { PlatformIcon } from "@/components/PlatformIcon";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Reveal } from "@/components/Reveal";
-import { trackGlow } from "@/lib/glow";
 import {
   downloadMeta,
   legal,
@@ -39,17 +38,9 @@ export const Route = createFileRoute("/downloads")({
 function PlatformCard({ id }: { id: PlatformId }) {
   const config = platforms[id];
   return (
-    <GlassPanel as="article" onMouseMove={trackGlow} className="group flex h-full flex-col gap-5 p-7 sm:p-8">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-        style={{
-          background:
-            "radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), oklch(1 0 0 / 6%), transparent 65%)",
-        }}
-      />
+    <GlassPanel as="article" className="group flex h-full flex-col gap-5 p-7 sm:p-8">
       <div className="flex items-center gap-3">
-        <span className="grid size-11 place-items-center rounded-2xl border border-border bg-[oklch(1_0_0_/_6%)] text-blush transition-transform duration-300 group-hover:scale-110">
+        <span className="grid size-11 place-items-center rounded-md border border-border bg-secondary text-candy transition-transform duration-200 group-hover:scale-110">
           <PlatformIcon platform={id} />
         </span>
         <div className="min-w-0">
@@ -93,11 +84,10 @@ function PlatformCard({ id }: { id: PlatformId }) {
         </ol>
       </div>
 
-      {/* Checksums render only when configured — never invented. */}
       {config.sha256 ? (
         <div>
           <h3 className="text-sm font-semibold">SHA-256 checksum</h3>
-          <code className="mt-2 block overflow-x-auto rounded-xl border border-border bg-[oklch(0_0_0_/_25%)] p-3 font-mono text-xs">
+          <code className="mt-2 block overflow-x-auto rounded-md border border-border bg-secondary p-3 font-mono text-xs">
             {config.sha256}
           </code>
         </div>
@@ -143,12 +133,12 @@ function Downloads() {
             {releaseNotes.map((release, i) => (
               <Reveal key={release.version} delay={i * 100}>
                 <GlassPanel className="p-6">
-                <div className="flex flex-wrap items-baseline gap-3">
-                  <h3 className="font-display text-lg font-bold">v{release.version}</h3>
-                  <time className="text-xs text-muted-foreground" dateTime={release.date}>
-                    {release.date}
-                  </time>
-                </div>
+                  <div className="flex flex-wrap items-baseline gap-3">
+                    <h3 className="font-display text-lg font-bold">v{release.version}</h3>
+                    <time className="text-xs text-muted-foreground" dateTime={release.date}>
+                      {release.date}
+                    </time>
+                  </div>
                   <ul className="mt-3 space-y-1 text-sm text-muted-foreground">
                     {release.items.map((item) => (
                       <li key={item}>• {item}</li>
@@ -162,7 +152,7 @@ function Downloads() {
                 href={downloadMeta.releaseNotesUrl}
                 target="_blank"
                 rel="noreferrer noopener"
-                className="text-sm font-semibold text-blush underline underline-offset-4"
+                className="text-sm font-semibold text-candy underline underline-offset-4"
               >
                 Full changelog
               </a>
@@ -178,7 +168,7 @@ function Downloads() {
           </h2>
           <Reveal>
             <GlassPanel className="h-full p-6">
-              <ShieldCheck className="size-5 text-mint" aria-hidden="true" />
+              <ShieldCheck className="size-5 text-candy" aria-hidden="true" />
               <h3 className="mt-3 font-display font-bold">Signed installers</h3>
               <p className="mt-1 text-sm text-muted-foreground">
                 Windows builds are Authenticode-signed and macOS builds are notarized, so your system
@@ -188,7 +178,7 @@ function Downloads() {
           </Reveal>
           <Reveal delay={100}>
             <GlassPanel className="h-full p-6">
-              <FileText className="size-5 text-blush" aria-hidden="true" />
+              <FileText className="size-5 text-candy" aria-hidden="true" />
               <h3 className="mt-3 font-display font-bold">Verify your file</h3>
               <p className="mt-1 text-sm text-muted-foreground">
                 When a checksum is published for a release it appears above. Compare it with{" "}
@@ -199,11 +189,11 @@ function Downloads() {
           </Reveal>
           <Reveal delay={200}>
             <GlassPanel className="h-full p-6">
-              <LifeBuoy className="size-5 text-lavender" aria-hidden="true" />
+              <LifeBuoy className="size-5 text-candy" aria-hidden="true" />
               <h3 className="mt-3 font-display font-bold">Stuck installing?</h3>
               <p className="mt-1 text-sm text-muted-foreground">
                 Our{" "}
-                <Link to="/support" className="text-blush underline underline-offset-4">
+                <Link to="/support" className="text-candy underline underline-offset-4">
                   support page
                 </Link>{" "}
                 covers the common Windows SmartScreen and macOS Gatekeeper prompts.

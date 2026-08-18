@@ -55,12 +55,12 @@ function SignIn() {
           }
           footer={
             <div className="flex flex-col gap-2">
-              <Link to="/forgot-password" className="text-blush underline underline-offset-4">
+              <Link to="/forgot-password" className="text-candy underline underline-offset-4">
                 Forgot your password?
               </Link>
               <span>
                 No account yet?{" "}
-                <Link to="/signup" className="text-blush underline underline-offset-4">
+                <Link to="/signup" className="text-candy underline underline-offset-4">
                   Create one
                 </Link>
               </span>

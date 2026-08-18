@@ -10,22 +10,22 @@ const meta: Record<
   operational: {
     label: "Operational",
     icon: CheckCircle2,
-    className: "text-mint border-[oklch(0.83_0.14_165_/_35%)] bg-[oklch(0.83_0.14_165_/_10%)]",
+    className: "text-candy border-candy/30 bg-candy/10",
   },
   degraded: {
     label: "Degraded performance",
     icon: AlertTriangle,
-    className: "text-amber-status border-[oklch(0.83_0.15_80_/_35%)] bg-[oklch(0.83_0.15_80_/_10%)]",
+    className: "text-amber-status border-amber-status/30 bg-amber-status/10",
   },
   outage: {
     label: "Outage",
     icon: XCircle,
-    className: "text-destructive border-[oklch(0.62_0.21_20_/_40%)] bg-[oklch(0.62_0.21_20_/_12%)]",
+    className: "text-destructive border-destructive/30 bg-destructive/10",
   },
   maintenance: {
     label: "Maintenance",
     icon: Wrench,
-    className: "text-lavender border-[oklch(0.78_0.09_305_/_35%)] bg-[oklch(0.78_0.09_305_/_10%)]",
+    className: "text-muted-foreground border-border bg-secondary",
   },
 };
 

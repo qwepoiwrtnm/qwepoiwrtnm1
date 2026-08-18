@@ -1,36 +1,18 @@
-import { useEffect, useRef, useState } from "react";
+import { ArrowRight, CheckCircle2, Download } from "lucide-react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight } from "lucide-react";
 import { DownloadButton } from "@/components/DownloadButton";
 import { PlatformSelector } from "@/components/PlatformSelector";
-import { ParticleBackground } from "@/components/ParticleBackground";
-import { ProductPreview } from "@/components/ProductPreview";
-import { heroContent, heroStats, media } from "@/config/site";
+import { ScreenshotGallery } from "@/components/ScreenshotGallery";
+import { heroContent, heroStats, media, platforms } from "@/config/site";
 
+/**
+ * Centered "command center" hero. Big gallery, bold headline,
+ * platform-aware download bar, and a floating stats footer.
+ */
 export function Hero() {
-  const sectionRef = useRef<HTMLElement | null>(null);
-  const [pointer, setPointer] = useState({ x: 50, y: 40 });
-
-  useEffect(() => {
-    const el = sectionRef.current;
-    if (!el) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    if (window.matchMedia("(pointer: coarse)").matches) return;
-
-    const onMove = (event: PointerEvent) => {
-      const rect = el.getBoundingClientRect();
-      setPointer({
-        x: ((event.clientX - rect.left) / rect.width) * 100,
-        y: ((event.clientY - rect.top) / rect.height) * 100,
-      });
-    };
-    el.addEventListener("pointermove", onMove);
-    return () => el.removeEventListener("pointermove", onMove);
-  }, []);
-
   return (
-    <section ref={sectionRef} className="relative isolate overflow-hidden">
-      {/* Background media — low-bandwidth friendly still image */}
+    <section className="relative isolate overflow-hidden px-5 pt-28 pb-8 sm:px-8 sm:pt-32 lg:pt-40">
+      {/* Background */}
       <div aria-hidden="true" className="absolute inset-0 -z-20">
         <img
           src={media.heroImage}
@@ -39,77 +21,68 @@ export function Hero() {
           height={1088}
           fetchPriority="high"
           decoding="async"
-          className="size-full object-cover"
+          className="size-full object-cover opacity-45"
         />
       </div>
-
-      {/* Cinematic plum + pink overlay and vignette */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,oklch(0.11_0.03_315_/_88%),oklch(0.13_0.04_320_/_78%)_45%,var(--background))]"
+        className="absolute inset-0 -z-10 bg-[radial-gradient(100%_90%_at_50%_0%,transparent_0%,var(--background)_75%),linear-gradient(180deg,oklch(0.08_0_0_/_40%),var(--background))]"
       />
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 -z-10 transition-[background] duration-500"
-        style={{
-          background: `radial-gradient(45% 50% at ${pointer.x}% ${pointer.y}%, oklch(0.72 0.24 352 / 22%), transparent 70%)`,
-        }}
-      />
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 -z-10 bg-[radial-gradient(120%_90%_at_50%_10%,transparent_35%,oklch(0.08_0.02_315_/_85%))]"
-      />
-      <ParticleBackground className="-z-10" />
 
-      <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 pt-32 pb-20 sm:px-8 sm:pt-40 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-14 lg:pb-28">
-        <div className="flex min-w-0 flex-col items-start gap-6 animate-rise-in">
-          <span className="glass inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-[11px] font-semibold tracking-[0.24em] text-blush uppercase">
-            <span aria-hidden="true" className="size-1.5 rounded-full bg-candy" />
-            {heroContent.eyebrow}
-          </span>
+      <div className="relative z-10 mx-auto flex max-w-6xl flex-col items-center text-center">
+        {/* Status pill */}
+        <span className="inline-flex items-center gap-2 rounded-full border border-candy/30 bg-candy/10 px-3 py-1.5 text-[11px] font-bold tracking-[0.14em] text-candy uppercase">
+          <CheckCircle2 className="size-3.5" aria-hidden="true" />
+          Latest build v{platforms.windows.version}
+        </span>
 
-          <h1 className="text-5xl leading-[0.95] font-extrabold text-balance sm:text-6xl lg:text-7xl">
-            {heroContent.headlineLead}{" "}
-            <span className="text-gradient-candy">{heroContent.headlineAccent}</span>
-          </h1>
+        {/* Headline */}
+        <h1 className="mt-6 max-w-4xl text-[clamp(2.75rem,7vw,5.5rem)] leading-[0.95] font-extrabold tracking-tight text-balance">
+          {heroContent.headlineLead}{" "}
+          <span className="text-candy">{heroContent.headlineAccent}</span>
+        </h1>
 
-          <p className="max-w-lg text-base leading-relaxed text-muted-foreground text-pretty sm:text-lg">
-            {heroContent.supporting}
-          </p>
+        <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground text-pretty sm:text-lg">
+          {heroContent.supporting}
+        </p>
 
-          <div className="flex w-full flex-col gap-4 sm:flex-row sm:items-start">
-            <DownloadButton />
-            <Link
-              to={heroContent.secondaryCta.to}
-              className="glass inline-flex items-center justify-center gap-2 rounded-full px-6 py-4 text-base font-semibold transition-[background-color,transform] hover:bg-[oklch(1_0_0_/_10%)] active:scale-[0.98]"
-            >
-              {heroContent.secondaryCta.label}
-              <ArrowRight className="size-4" aria-hidden="true" />
-            </Link>
-          </div>
-
-          <PlatformSelector />
-
-          <p className="text-xs text-muted-foreground">{heroContent.availability}</p>
-
-          <dl className="mt-2 grid w-full grid-cols-3 gap-4 border-t border-border pt-6">
-            {heroStats.map((stat) => (
-              <div key={stat.label} className="min-w-0">
-                <dt className="sr-only">{stat.label}</dt>
-                <dd className="font-display text-xl font-extrabold sm:text-2xl">{stat.value}</dd>
-                <p className="truncate text-[11px] tracking-[0.14em] text-muted-foreground uppercase">
-                  {stat.label}
-                </p>
-              </div>
-            ))}
-          </dl>
+        {/* Download command bar */}
+        <div className="mt-8 flex w-full max-w-xl flex-col items-center gap-4 sm:flex-row sm:justify-center">
+          <DownloadButton />
+          <Link
+            to={heroContent.secondaryCta.to}
+            className="inline-flex w-full items-center justify-center gap-2 rounded-md border border-border bg-card px-6 py-3.5 text-base font-semibold text-foreground transition-colors hover:bg-secondary active:scale-[0.98] sm:w-auto"
+          >
+            {heroContent.secondaryCta.label}
+            <ArrowRight className="size-4" aria-hidden="true" />
+          </Link>
         </div>
 
-        <div className="min-w-0 animate-rise-in [animation-delay:120ms]">
-          <div className="animate-float-soft">
-            <ProductPreview />
-          </div>
+        <PlatformSelector className="mt-4" />
+
+        {/* Screenshot gallery */}
+        <div className="mt-12 w-full max-w-5xl">
+          <ScreenshotGallery />
         </div>
+
+        {/* Stats bar */}
+        <dl className="mt-10 grid w-full max-w-4xl grid-cols-3 gap-4 rounded-md border border-border bg-card/80 px-4 py-5 sm:px-8">
+          {heroStats.map((stat) => (
+            <div key={stat.label} className="text-center">
+              <dt className="font-display text-2xl font-extrabold text-foreground sm:text-3xl">
+                {stat.value}
+              </dt>
+              <dd className="mt-1 text-[10px] font-bold tracking-[0.12em] text-muted-foreground uppercase sm:text-[11px]">
+                {stat.label}
+              </dd>
+            </div>
+          ))}
+        </dl>
+
+        <p className="mt-6 flex flex-wrap items-center justify-center gap-2 text-xs text-muted-foreground">
+          <Download className="size-3.5" aria-hidden="true" />
+          {heroContent.availability}. No account, no bundled extras.
+        </p>
       </div>
     </section>
   );

@@ -3,25 +3,7 @@ import { media } from "@/config/site";
 import { GlassPanel } from "@/components/GlassPanel";
 import { cn } from "@/lib/utils";
 
-const accentDot: Record<string, string> = {
-  candy: "bg-candy",
-  lavender: "bg-lavender",
-  mint: "bg-mint",
-};
-
-const accentBorder: Record<string, string> = {
-  candy: "border-candy",
-  lavender: "border-lavender",
-  mint: "border-mint",
-};
-
-const accentGlow: Record<string, string> = {
-  candy: "oklch(0.7 0.24 352 / 20%)",
-  lavender: "oklch(0.78 0.09 305 / 20%)",
-  mint: "oklch(0.83 0.14 165 / 15%)",
-};
-
-/** Interface gallery. PLACEHOLDER captures — replace before production. */
+/** Interface gallery. Flat frame, pink active border. */
 export function ScreenshotGallery() {
   const shots = media.gallery;
   const [index, setIndex] = useState(0);
@@ -47,24 +29,14 @@ export function ScreenshotGallery() {
     }
   };
 
-  const active = shots[index];
-
   return (
     <GlassPanel className="p-3 sm:p-4">
-      {/* Theme-reactive ambient tint — follows the selected theme's accent color */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 -z-10 transition-[background] duration-700"
-        style={{
-          background: `radial-gradient(90% 70% at 50% 0%, ${accentGlow[active.accent]}, transparent 70%)`,
-        }}
-      />
       <figure>
         <div
           id="gallery-image"
           role="tabpanel"
           aria-label={shots[index].label}
-          className="relative aspect-16/9 w-full overflow-hidden rounded-2xl border border-border"
+          className="relative aspect-16/9 w-full overflow-hidden rounded-md border border-border"
         >
           {shots.map((shot, i) => (
             <img
@@ -77,8 +49,8 @@ export function ScreenshotGallery() {
               decoding="async"
               aria-hidden={i !== index}
               className={cn(
-                "absolute inset-0 size-full object-cover transition-opacity duration-500",
-                i === index ? "opacity-100 animate-ken-burns" : "opacity-0",
+                "absolute inset-0 size-full object-cover transition-opacity duration-300",
+                i === index ? "opacity-100" : "opacity-0",
               )}
             />
           ))}
@@ -111,9 +83,9 @@ export function ScreenshotGallery() {
             tabIndex={i === index ? 0 : -1}
             onClick={() => setIndex(i)}
             className={cn(
-              "group relative overflow-hidden rounded-xl border transition-all duration-300 active:scale-[0.97]",
+              "group relative overflow-hidden rounded-md border transition-all duration-200 active:scale-[0.97]",
               i === index
-                ? cn(accentBorder[shot.accent], "shadow-[var(--shadow-glow)]")
+                ? "border-candy"
                 : "border-border opacity-60 hover:opacity-100 focus-visible:opacity-100",
             )}
           >
@@ -124,13 +96,18 @@ export function ScreenshotGallery() {
               height={270}
               loading="lazy"
               decoding="async"
-              className="aspect-16/9 w-full object-cover transition-transform duration-300 group-hover:scale-[1.04]"
+              className="aspect-16/9 w-full object-cover transition-transform duration-200 group-hover:scale-[1.03]"
             />
             <span
               aria-hidden="true"
-              className="absolute inset-x-0 bottom-0 flex items-center gap-1.5 bg-[linear-gradient(0deg,oklch(0.1_0.03_318_/_85%),transparent)] px-2.5 pt-8 pb-2 text-left text-xs font-semibold text-foreground"
+              className="absolute inset-x-0 bottom-0 flex items-center gap-1.5 bg-[linear-gradient(0deg,oklch(0.08_0_0_/_85%),transparent)] px-2.5 pt-8 pb-2 text-left text-xs font-semibold text-foreground"
             >
-              <span className={cn("size-1.5 shrink-0 rounded-full", accentDot[shot.accent])} />
+              <span
+                className={cn(
+                  "size-1.5 shrink-0 rounded-full",
+                  i === index ? "bg-candy" : "bg-muted-foreground",
+                )}
+              />
               {shot.label}
             </span>
           </button>

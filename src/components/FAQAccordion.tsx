@@ -16,7 +16,7 @@ export function FAQAccordion({ limit }: { limit?: number }) {
         <Reveal key={item.q} delay={Math.min(i, 5) * 60}>
           <AccordionItem
             value={`faq-${i}`}
-            className="glass mb-3 rounded-2xl border-b-0 px-5"
+            className="surface mb-3 rounded-md border-b-0 px-5"
           >
             <AccordionTrigger className="py-5 text-left font-display text-base font-bold hover:no-underline">
               {item.q}

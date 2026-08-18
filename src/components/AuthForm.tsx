@@ -93,7 +93,7 @@ export function AuthForm({
                   .filter(Boolean)
                   .join(" ")
                   .trim() || undefined}
-                className="min-h-12 rounded-2xl border border-input bg-[oklch(1_0_0_/_5%)] px-4 text-base text-foreground placeholder:text-muted-foreground"
+                className="min-h-12 rounded-md border border-input bg-secondary px-4 text-base text-foreground placeholder:text-muted-foreground focus:border-candy"
               />
               {field.hint ? (
                 <p id={hintId} className="text-xs text-muted-foreground">
@@ -112,7 +112,7 @@ export function AuthForm({
         <button
           type="submit"
           disabled={pending}
-          className="mt-2 inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[image:var(--gradient-candy)] px-6 font-semibold text-primary-foreground shadow-[var(--shadow-glow)] transition-transform duration-300 hover:-translate-y-0.5 disabled:opacity-70"
+          className="mt-2 inline-flex min-h-12 items-center justify-center gap-2 rounded-md bg-candy px-6 font-semibold text-black transition-transform duration-200 hover:-translate-y-0.5 disabled:opacity-70"
         >
           {pending ? <Loader2 className="size-4 animate-spin" aria-hidden="true" /> : null}
           {pending ? "Working…" : submitLabel}
@@ -122,9 +122,9 @@ export function AuthForm({
       {result ? (
         <div
           role="status"
-          className="mt-5 rounded-2xl border border-border bg-[oklch(1_0_0_/_4%)] p-4 text-sm"
+          className="mt-5 rounded-md border border-border bg-secondary p-4 text-sm"
         >
-          <p className={result.ok ? "text-mint" : "text-amber-status"}>{result.message}</p>
+          <p className={result.ok ? "text-candy" : "text-amber-status"}>{result.message}</p>
           {result.setup ? (
             <div className="mt-3 border-t border-border pt-3">
               <p className="flex items-center gap-1.5 text-xs font-semibold text-muted-foreground">

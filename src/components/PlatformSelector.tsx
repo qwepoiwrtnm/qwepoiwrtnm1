@@ -3,7 +3,7 @@ import { usePlatform } from "@/hooks/use-platform";
 import { platforms, type PlatformId } from "@/config/site";
 import { cn } from "@/lib/utils";
 
-/** Always-visible manual platform switcher. Never hides the other platform. */
+/** Always-visible manual platform switcher. */
 export function PlatformSelector({ className }: { className?: string }) {
   const { active, manual, choose } = usePlatform();
 
@@ -12,7 +12,7 @@ export function PlatformSelector({ className }: { className?: string }) {
       <div
         role="group"
         aria-label="Choose your platform"
-        className="glass inline-flex w-fit gap-1 rounded-full p-1"
+        className="inline-flex w-fit gap-1 rounded-md border border-border bg-card p-1"
       >
         {(Object.keys(platforms) as PlatformId[]).map((id) => {
           const selected = active === id;
@@ -23,9 +23,9 @@ export function PlatformSelector({ className }: { className?: string }) {
               onClick={() => choose(id)}
               aria-pressed={selected}
               className={cn(
-                "inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-colors",
+                "inline-flex items-center gap-2 rounded-sm px-4 py-2 text-sm font-medium transition-colors",
                 selected
-                  ? "bg-[image:var(--gradient-candy)] text-primary-foreground"
+                  ? "bg-candy text-black"
                   : "text-muted-foreground hover:text-foreground",
               )}
             >

@@ -15,13 +15,9 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 
 function NotFoundComponent() {
   return (
-    <div className="relative flex min-h-dvh items-center justify-center overflow-hidden bg-background px-5">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 ambient-layer animate-ambient"
-      />
-      <div className="glass relative max-w-md rounded-3xl p-10 text-center">
-        <p className="font-display text-7xl font-extrabold text-gradient-candy">404</p>
+    <div className="relative flex min-h-dvh items-center justify-center bg-background px-5">
+      <div className="max-w-md rounded-md border border-border bg-card p-10 text-center">
+        <p className="font-display text-7xl font-extrabold text-candy">404</p>
         <h1 className="mt-3 font-display text-2xl font-bold text-foreground">
           This page wandered off
         </h1>
@@ -31,13 +27,13 @@ function NotFoundComponent() {
         <div className="mt-6 flex flex-wrap justify-center gap-3">
           <Link
             to="/"
-            className="inline-flex min-h-11 items-center rounded-full bg-[image:var(--gradient-candy)] px-5 text-sm font-semibold text-primary-foreground"
+            className="inline-flex min-h-11 items-center rounded-md bg-candy px-5 text-sm font-semibold text-black"
           >
             Go home
           </Link>
           <Link
             to="/downloads"
-            className="inline-flex min-h-11 items-center rounded-full border border-border px-5 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
+            className="inline-flex min-h-11 items-center rounded-md border border-border px-5 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
           >
             Download Cutie Client
           </Link>
@@ -70,13 +66,13 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
               router.invalidate();
               reset();
             }}
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            className="inline-flex items-center justify-center rounded-md bg-candy px-4 py-2 text-sm font-medium text-black transition-colors hover:brightness-110"
           >
             Try again
           </button>
           <a
             href="/"
-            className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+            className="inline-flex items-center justify-center rounded-md border border-border bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
           >
             Go home
           </a>
@@ -97,7 +93,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         content:
           "A fast, polished Minecraft client for Windows and macOS. Free download, no account required.",
       },
-      { name: "theme-color", content: "#1b0f1c" },
+      { name: "theme-color", content: "#141414" },
       { property: "og:site_name", content: "Cutie Client <3" },
       { property: "og:type", content: "website" },
       { property: "og:image", content: `${brand.siteUrl}/og.jpg` },
@@ -115,7 +111,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap",
       },
       { rel: "icon", href: "/favicon.ico", sizes: "32x32" },
       { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
@@ -149,7 +145,6 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
     </QueryClientProvider>
   );

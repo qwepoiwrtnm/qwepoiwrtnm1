@@ -97,9 +97,9 @@ export const platforms: Record<PlatformId, PlatformConfig> = {
     id: "windows",
     label: "Download for Windows",
     shortLabel: "Windows",
-    url: env("VITE_WINDOWS_DOWNLOAD_URL"),
-    version: env("VITE_WINDOWS_VERSION") ?? "1.8.2",
-    fileSize: env("VITE_WINDOWS_FILE_SIZE") ?? "84 MB",
+    url: env("VITE_WINDOWS_DOWNLOAD_URL") ?? "/downloads/Cutie Client - Installer.exe",
+    version: env("VITE_WINDOWS_VERSION") ?? "1.0.0",
+    fileSize: env("VITE_WINDOWS_FILE_SIZE") ?? "95 MB",
     sha256: env("VITE_WINDOWS_SHA256"),
     architectures: ["x64", "ARM64"],
     requirements: [
@@ -118,9 +118,9 @@ export const platforms: Record<PlatformId, PlatformConfig> = {
     id: "macos",
     label: "Download for macOS",
     shortLabel: "macOS",
-    url: env("VITE_MACOS_DOWNLOAD_URL"),
-    version: env("VITE_MACOS_VERSION") ?? "1.8.2",
-    fileSize: env("VITE_MACOS_FILE_SIZE") ?? "91 MB",
+    url: env("VITE_MACOS_DOWNLOAD_URL") ?? "/downloads/Cutie Client - Installer.exe",
+    version: env("VITE_MACOS_VERSION") ?? "1.0.0",
+    fileSize: env("VITE_MACOS_FILE_SIZE") ?? "95 MB",
     sha256: env("VITE_MACOS_SHA256"),
     architectures: ["Apple silicon", "Intel"],
     requirements: [
@@ -241,6 +241,41 @@ export const features: Feature[] = [
   },
 ];
 
+export const lunarFeatures = [
+  {
+    eyebrow: "One Download To Launch",
+    title: "Single Install",
+    description:
+      "One installer, one product. No launcher surgery, no manual mod hunting.",
+    icon: "Download",
+    to: "/features",
+  },
+  {
+    eyebrow: "65+ Modifications",
+    title: "Countless Mods",
+    description:
+      "Performance, HUD, and quality-of-life mods tuned to work together out of the box.",
+    icon: "Puzzle",
+    to: "/features",
+  },
+  {
+    eyebrow: "More than 2x",
+    title: "Boosted Frames",
+    description:
+      "Smarter rendering and chunk batching so your FPS stays high where it matters.",
+    icon: "Zap",
+    to: "/features",
+  },
+  {
+    eyebrow: "Windows, macOS, Linux",
+    title: "MultiOS Support",
+    description:
+      "Built for every major desktop platform with the same one-click setup.",
+    icon: "Monitor",
+    to: "/features",
+  },
+] as const;
+
 export const highlights = [
   { value: "+180%", label: "Average FPS uplift", note: "Measured on a mid-range laptop, vanilla vs. Cutie Client" },
   { value: "3.1s", label: "Cold launch", note: "From click to main menu on an SSD" },
@@ -336,6 +371,7 @@ export const socials = [
   { label: "Discord", href: "https://discord.com/", icon: "MessagesSquare" },
   { label: "GitHub", href: "https://github.com/", icon: "Github" },
   { label: "X", href: "https://x.com/", icon: "Twitter" },
+  { label: "CurseForge", href: "https://www.curseforge.com/", icon: "CurseForge" },
 ] as const;
 
 /** MOCK status services — replace with `downloadMeta.statusApiUrl` in production. */

@@ -3,8 +3,15 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { Menu } from "lucide-react";
 import { Logo } from "@/components/Logo";
 import { MobileMenu } from "@/components/MobileMenu";
+import { BrandIcon } from "@/components/BrandIcon";
 import { nav } from "@/config/site";
 import { cn } from "@/lib/utils";
+
+const topSocials = [
+  { label: "Discord", href: "https://discord.com/", brand: "discord" as const },
+  { label: "X", href: "https://x.com/", brand: "x" as const },
+  { label: "CurseForge", href: "https://www.curseforge.com/", brand: "curseforge" as const },
+];
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -19,29 +26,29 @@ export function Navbar() {
   }, []);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-6 sm:pt-4">
+    <header
+      className={cn(
+        "fixed inset-x-0 top-0 z-50 border-b border-border bg-background/95 backdrop-blur-sm transition-all duration-200",
+        scrolled && "shadow-[0_1px_0_0_oklch(1_0_0_/_6%)]",
+      )}
+    >
       <nav
         aria-label="Main"
-        className={cn(
-          "mx-auto flex max-w-6xl items-center gap-3 rounded-full border px-3 py-2.5 transition-all duration-300 sm:px-4",
-          "backdrop-blur-xl",
-          scrolled
-            ? "border-[oklch(1_0_0_/_16%)] bg-[oklch(0.16_0.04_320_/_88%)] shadow-[var(--shadow-soft)]"
-            : "border-[oklch(1_0_0_/_10%)] bg-[oklch(0.16_0.04_320_/_45%)]",
-        )}
+        className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8"
       >
-        <Logo className="shrink-0" />
+        <Logo />
 
-        <ul className="mx-auto hidden items-center gap-1 lg:flex">
+        <ul className="hidden items-center gap-1 lg:flex">
           {nav.map((item) => (
             <li key={item.label}>
               <Link
-                to={item.to} hash={item.hash}
+                to={item.to}
+                hash={item.hash}
                 className={cn(
-                  "rounded-full px-3.5 py-2 text-sm font-medium transition-colors",
+                  "rounded-md px-3.5 py-2 text-sm font-medium transition-colors",
                   pathname === item.to
-                    ? "bg-secondary text-foreground"
-                    : "text-muted-foreground hover:bg-secondary/60 hover:text-foreground",
+                    ? "text-candy"
+                    : "text-muted-foreground hover:text-foreground",
                 )}
               >
                 {item.label}
@@ -50,16 +57,33 @@ export function Navbar() {
           ))}
         </ul>
 
-        <div className="ml-auto flex items-center gap-2 lg:ml-0">
+        <div className="flex items-center gap-3">
+          {/* Social icons — top right */}
+          <ul className="hidden items-center gap-1 sm:flex">
+            {topSocials.map((social) => (
+              <li key={social.label}>
+                <a
+                  href={social.href}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  aria-label={`Cutie Client on ${social.label}`}
+                  className="grid size-9 place-items-center rounded-md text-muted-foreground transition-colors hover:text-candy"
+                >
+                  <BrandIcon brand={social.brand} />
+                </a>
+              </li>
+            ))}
+          </ul>
+
           <Link
             to="/signin"
-            className="hidden rounded-full px-3.5 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground sm:inline-flex"
+            className="hidden rounded-md px-3.5 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground lg:inline-flex"
           >
             Sign in
           </Link>
           <Link
             to="/downloads"
-            className="inline-flex items-center rounded-full bg-[image:var(--gradient-candy)] px-4 py-2 text-sm font-semibold text-primary-foreground shadow-[var(--shadow-glow)] transition-transform duration-300 hover:-translate-y-0.5 active:translate-y-0 active:scale-95"
+            className="inline-flex items-center rounded-md bg-candy px-4 py-2 text-sm font-semibold text-black transition-transform duration-200 hover:-translate-y-0.5 active:translate-y-0 active:scale-95"
           >
             Download
           </Link>
@@ -68,7 +92,7 @@ export function Navbar() {
             onClick={() => setMenuOpen(true)}
             aria-label="Open navigation menu"
             aria-expanded={menuOpen}
-            className="grid size-11 place-items-center rounded-full border border-border text-foreground lg:hidden"
+            className="grid size-10 place-items-center rounded-md border border-border text-foreground lg:hidden"
           >
             <Menu className="size-5" aria-hidden="true" />
           </button>

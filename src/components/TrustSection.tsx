@@ -16,7 +16,7 @@ export function TrustSection() {
         <ul className="mt-6 grid gap-3 sm:grid-cols-2">
           {trustBadges.map((badge) => (
             <li key={badge.label} className="flex items-start gap-2.5">
-              <BadgeCheck className="mt-0.5 size-4 shrink-0 text-mint" aria-hidden="true" />
+              <BadgeCheck className="mt-0.5 size-4 shrink-0 text-candy" aria-hidden="true" />
               <span className="min-w-0">
                 <span className="block text-sm font-semibold">{badge.label}</span>
                 <span className="block text-xs text-muted-foreground">{badge.detail}</span>
@@ -43,13 +43,13 @@ export function TrustSection() {
         <p className="mt-5 text-xs leading-relaxed text-muted-foreground">{legal.disclaimer}</p>
 
         <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm">
-          <Link to="/privacy" className="text-blush underline underline-offset-4">
+          <Link to="/privacy" className="text-candy underline underline-offset-4">
             Privacy Policy
           </Link>
-          <Link to="/terms" className="text-blush underline underline-offset-4">
+          <Link to="/terms" className="text-candy underline underline-offset-4">
             Terms of Service
           </Link>
-          <Link to="/status" className="text-blush underline underline-offset-4">
+          <Link to="/status" className="text-candy underline underline-offset-4">
             System status
           </Link>
         </div>
@@ -59,9 +59,9 @@ export function TrustSection() {
         {testimonials.map((t) => (
           <li key={t.author}>
             <GlassPanel className="h-full p-6">
-              <Quote className="size-5 text-blush" aria-hidden="true" />
+              <Quote className="size-5 text-candy" aria-hidden="true" />
               <blockquote className="mt-3 text-sm leading-relaxed text-foreground">
-                “{t.quote}”
+                "{t.quote}"
               </blockquote>
               <p className="mt-3 text-xs text-muted-foreground">
                 {t.author} · {t.role}

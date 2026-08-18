@@ -77,7 +77,7 @@ function SignUp() {
           footer={
             <span>
               Already have one?{" "}
-              <Link to="/signin" className="text-blush underline underline-offset-4">
+              <Link to="/signin" className="text-candy underline underline-offset-4">
                 Sign in
               </Link>
             </span>

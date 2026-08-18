@@ -6,7 +6,6 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { GlassPanel } from "@/components/GlassPanel";
 import { DownloadButton } from "@/components/DownloadButton";
 import { Reveal } from "@/components/Reveal";
-import { trackGlow } from "@/lib/glow";
 import { previewBenefits } from "@/config/site";
 
 export const Route = createFileRoute("/features")({
@@ -59,15 +58,7 @@ function Features() {
           </Reveal>
           <div className="mt-10 grid gap-4 md:grid-cols-2">
             <Reveal delay={100}>
-              <GlassPanel className="group h-full p-7 opacity-80 transition-opacity hover:opacity-100" onMouseMove={trackGlow}>
-                <div
-                  aria-hidden="true"
-                  className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                  style={{
-                    background:
-                      "radial-gradient(220px circle at var(--mx, 50%) var(--my, 50%), oklch(1 0 0 / 5%), transparent 65%)",
-                  }}
-                />
+              <GlassPanel className="h-full p-7 opacity-80 transition-opacity hover:opacity-100">
                 <h3 className="font-display text-lg font-bold text-muted-foreground">
                   Vanilla launcher
                 </h3>
@@ -80,20 +71,8 @@ function Features() {
               </GlassPanel>
             </Reveal>
             <Reveal delay={220}>
-              <GlassPanel className="group h-full p-7" onMouseMove={trackGlow}>
-                <div
-                  aria-hidden="true"
-                  className="pointer-events-none absolute -top-20 -right-10 size-56 rounded-full bg-[radial-gradient(circle,oklch(0.7_0.24_352_/_26%),transparent_70%)]"
-                />
-                <div
-                  aria-hidden="true"
-                  className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                  style={{
-                    background:
-                      "radial-gradient(220px circle at var(--mx, 50%) var(--my, 50%), oklch(1 0 0 / 7%), transparent 65%)",
-                  }}
-                />
-                <h3 className="font-display text-lg font-bold text-gradient-candy">Cutie Client</h3>
+              <GlassPanel className="h-full border-candy/30 p-7">
+                <h3 className="font-display text-lg font-bold text-candy">Cutie Client</h3>
                 <ul className="mt-4 space-y-2 text-sm">
                   <li>• 174 FPS average in the same hub</li>
                   <li>• Smoothed frame pacing during chunk loads</li>

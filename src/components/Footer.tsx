@@ -1,13 +1,18 @@
 import { Link } from "@tanstack/react-router";
-import { Github, MessagesSquare, Twitter } from "lucide-react";
 import { Logo } from "@/components/Logo";
+import { BrandIcon } from "@/components/BrandIcon";
 import { brand, footerNav, legal, socials } from "@/config/site";
 
-const iconMap = { MessagesSquare, Github, Twitter } as const;
+const brandMap: Record<string, "discord" | "x" | "curseforge"> = {
+  MessagesSquare: "discord",
+  Github: "discord", // fallback, won't be used
+  Twitter: "x",
+  CurseForge: "curseforge",
+};
 
 export function Footer() {
   return (
-    <footer className="relative border-t border-border bg-plum-deep/60">
+    <footer className="relative border-t border-border bg-card">
       <div className="mx-auto grid max-w-6xl gap-10 px-5 py-14 sm:px-8 lg:grid-cols-[1.4fr_repeat(3,1fr)]">
         <div className="flex flex-col gap-4">
           <Logo />
@@ -15,22 +20,21 @@ export function Footer() {
             {brand.description}
           </p>
           <ul className="flex gap-2">
-            {socials.map((social) => {
-              const Icon = iconMap[social.icon as keyof typeof iconMap];
-              return (
+            {socials
+              .filter((s) => s.label !== "GitHub")
+              .map((social) => (
                 <li key={social.label}>
                   <a
                     href={social.href}
                     target="_blank"
                     rel="noreferrer noopener"
                     aria-label={`${brand.name} on ${social.label}`}
-                    className="grid size-11 place-items-center rounded-full border border-border text-muted-foreground transition-colors hover:border-primary hover:text-foreground"
+                    className="grid size-10 place-items-center rounded-md border border-border text-muted-foreground transition-colors hover:border-candy hover:text-candy"
                   >
-                    <Icon className="size-4" aria-hidden="true" />
+                    <BrandIcon brand={brandMap[social.icon]} />
                   </a>
                 </li>
-              );
-            })}
+              ))}
           </ul>
         </div>
 
@@ -42,7 +46,7 @@ export function Footer() {
                 <li key={link.label}>
                   <Link
                     to={link.to} hash={link.hash}
-                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                    className="text-sm text-muted-foreground transition-colors hover:text-candy"
                   >
                     {link.label}
                   </Link>

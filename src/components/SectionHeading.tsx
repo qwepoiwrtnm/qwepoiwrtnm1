@@ -29,7 +29,7 @@ export function SectionHeading({
       )}
     >
       {eyebrow ? (
-        <span className="glass inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-[11px] font-semibold tracking-[0.24em] text-blush uppercase">
+        <span className="inline-flex items-center gap-2 text-[11px] font-bold tracking-[0.24em] text-candy uppercase">
           <span aria-hidden="true" className="size-1.5 rounded-full bg-candy" />
           {eyebrow}
         </span>

@@ -17,7 +17,7 @@ export function DownloadConfirmation({
   return (
     <GlassPanel className="w-full max-w-md p-5" as="aside">
       <div className="flex items-start gap-3">
-        <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-mint" aria-hidden="true" />
+        <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-candy" aria-hidden="true" />
         <div className="min-w-0 flex-1">
           <h3 className="font-display text-base font-bold">Download started</h3>
           <ol className="mt-2 space-y-1 text-sm text-muted-foreground">
@@ -26,10 +26,10 @@ export function DownloadConfirmation({
             ))}
           </ol>
           <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm">
-            <Link to="/support" className="text-blush underline underline-offset-4">
+            <Link to="/support" className="text-candy underline underline-offset-4">
               Troubleshooting
             </Link>
-            <Link to="/downloads" className="text-blush underline underline-offset-4">
+            <Link to="/downloads" className="text-candy underline underline-offset-4">
               Get the {other.shortLabel} build
             </Link>
           </div>
@@ -38,7 +38,7 @@ export function DownloadConfirmation({
           type="button"
           onClick={onClose}
           aria-label="Dismiss download confirmation"
-          className="rounded-full p-1 text-muted-foreground transition-colors hover:text-foreground"
+          className="rounded-sm p-1 text-muted-foreground transition-colors hover:text-foreground"
         >
           <X className="size-4" aria-hidden="true" />
         </button>

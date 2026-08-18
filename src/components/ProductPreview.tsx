@@ -3,13 +3,9 @@ import { GlassPanel } from "@/components/GlassPanel";
 import { brand, media, platforms, previewBenefits } from "@/config/site";
 
 /**
- * Premium desktop-app style preview card.
- * Media comes from `media.previewImage` / `media.previewVideo` in the central
- * config. The video renders client-side only and is skipped under
- * reduced-motion, so the image remains the SSR and accessibility fallback.
+ * Desktop-app style preview card. Flat surface, no float animation.
  */
 export function ProductPreview({ id }: { id?: string }) {
-  /** null until hydrated — the image is the SSR fallback. */
   const [reducedMotion, setReducedMotion] = useState<boolean | null>(null);
 
   useEffect(() => {
@@ -22,16 +18,16 @@ export function ProductPreview({ id }: { id?: string }) {
     <GlassPanel className="p-3 sm:p-4" as="section">
       <div className="flex items-center gap-2 px-2 pt-1 pb-3">
         <span aria-hidden="true" className="flex gap-1.5">
-          <span className="size-2.5 rounded-full bg-rose" />
-          <span className="size-2.5 rounded-full bg-amber-status" />
-          <span className="size-2.5 rounded-full bg-mint" />
+          <span className="size-2.5 rounded-full bg-muted-foreground/40" />
+          <span className="size-2.5 rounded-full bg-muted-foreground/40" />
+          <span className="size-2.5 rounded-full bg-candy/60" />
         </span>
         <p className="ml-auto truncate text-[11px] text-muted-foreground">
           {brand.fullName} • v{platforms.windows.version} • Blossom theme
         </p>
       </div>
 
-      <figure className="relative overflow-hidden rounded-2xl border border-border">
+      <figure className="relative overflow-hidden rounded-md border border-border">
         {showFootage ? (
           <video
             id={id}
@@ -57,7 +53,7 @@ export function ProductPreview({ id }: { id?: string }) {
             className="aspect-16/9 w-full object-cover"
           />
         )}
-        <figcaption className="absolute bottom-3 left-3 rounded-full bg-[oklch(0.12_0.03_315_/_80%)] px-3 py-1.5 text-[11px] text-foreground backdrop-blur-md">
+        <figcaption className="absolute bottom-3 left-3 rounded-sm bg-black/80 px-3 py-1.5 text-[11px] text-foreground">
           {media.previewCaption}
         </figcaption>
       </figure>
@@ -66,7 +62,7 @@ export function ProductPreview({ id }: { id?: string }) {
         {previewBenefits.map((benefit) => (
           <li
             key={benefit.title}
-            className="rounded-2xl border border-border bg-[oklch(1_0_0_/_4%)] px-3.5 py-3"
+            className="rounded-md border border-border bg-secondary px-3.5 py-3"
           >
             <p className="text-sm font-semibold">{benefit.title}</p>
             <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground">{benefit.body}</p>

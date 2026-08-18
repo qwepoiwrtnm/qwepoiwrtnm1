@@ -36,7 +36,6 @@ export function DownloadButton({
   function start(platform: PlatformId) {
     const target = platforms[platform];
     if (!target.url) return;
-    // Explicit, trusted URL from configuration only.
     window.location.assign(target.url);
     if (withConfirmation) setConfirmed(platform);
   }
@@ -60,23 +59,19 @@ export function DownloadButton({
         aria-haspopup={known ? undefined : "dialog"}
         aria-disabled={missingUrl || undefined}
         className={cn(
-          "group relative inline-flex w-full items-center justify-center gap-3 overflow-hidden rounded-full",
-          "bg-[image:var(--gradient-candy)] font-semibold text-primary-foreground",
-          "border border-[oklch(1_0_0_/_30%)] shadow-[var(--shadow-glow)]",
-          "transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_24px_70px_-16px_oklch(0.68_0.22_350_/_75%)]",
-          "active:translate-y-0 active:scale-[0.98] active:brightness-95 sm:w-auto",
+          "group relative inline-flex w-full items-center justify-center gap-3 overflow-hidden rounded-md",
+          "bg-candy font-semibold text-black",
+          "border border-candy",
+          "transition-all duration-200 hover:-translate-y-0.5 hover:brightness-110",
+          "active:translate-y-0 active:scale-[0.98] sm:w-auto",
           missingUrl && "cursor-not-allowed opacity-70 hover:translate-y-0",
           size === "lg" ? "px-8 py-4 text-base sm:text-lg" : "px-6 py-3 text-sm",
         )}
       >
-        <span
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-[linear-gradient(90deg,transparent,oklch(1_0_0_/_35%),transparent)] opacity-0 group-hover:opacity-100 group-hover:[animation:shine_1.1s_ease-out]"
-        />
         {known ? <PlatformIcon platform={active} className="size-5 shrink-0" /> : <Download className="size-5 shrink-0" />}
         <span className="truncate">{ready ? label : "Download Cutie Client"}</span>
         {config?.version ? (
-          <span className="hidden shrink-0 rounded-full bg-[oklch(1_0_0_/_18%)] px-2 py-0.5 text-xs font-medium sm:inline">
+          <span className="hidden shrink-0 rounded-sm bg-black/20 px-2 py-0.5 text-xs font-medium sm:inline">
             v{config.version}
           </span>
         ) : null}
@@ -97,7 +92,7 @@ export function DownloadButton({
       ) : null}
 
       <Dialog open={chooserOpen} onOpenChange={setChooserOpen}>
-        <DialogContent className="glass-strong max-w-md rounded-3xl">
+        <DialogContent className="surface-strong max-w-md rounded-md border">
           <DialogHeader>
             <DialogTitle>Choose your download</DialogTitle>
             <DialogDescription>
@@ -114,9 +109,9 @@ export function DownloadButton({
                   setChooserOpen(false);
                   start(id);
                 }}
-                className="flex items-center gap-3 rounded-2xl border border-border bg-secondary/50 px-4 py-3 text-left transition-colors hover:bg-accent"
+                className="flex items-center gap-3 rounded-md border border-border bg-secondary px-4 py-3 text-left transition-colors hover:bg-accent"
               >
-                <PlatformIcon platform={id} className="size-5 text-blush" />
+                <PlatformIcon platform={id} className="size-5 text-candy" />
                 <span className="flex-1">
                   <span className="block font-semibold">{platforms[id].shortLabel}</span>
                   <span className="block text-xs text-muted-foreground">

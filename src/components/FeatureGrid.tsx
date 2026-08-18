@@ -1,86 +1,50 @@
-import {
-  Gauge,
-  LayoutDashboard,
-  Palette,
-  Wand2,
-  Sparkles,
-  ShieldCheck,
-  type LucideIcon,
-} from "lucide-react";
-import { trackGlow } from "@/lib/glow";
-import { features, highlights } from "@/config/site";
-import { GlassPanel } from "@/components/GlassPanel";
+import { Link } from "@tanstack/react-router";
+import { Download, Puzzle, Zap, Monitor, ArrowRight, type LucideIcon } from "lucide-react";
+import { lunarFeatures } from "@/config/site";
 import { cn } from "@/lib/utils";
 
 const icons: Record<string, LucideIcon> = {
-  Gauge,
-  LayoutDashboard,
-  Palette,
-  Wand2,
-  Sparkles,
-  ShieldCheck,
+  Download,
+  Puzzle,
+  Zap,
+  Monitor,
 };
 
-/** Bento grid: one wide spotlight card plus varied supporting cards. */
+/** Four big feature cards. Flat surfaces, pink accent on hover. */
 export function FeatureGrid({ className }: { className?: string }) {
   return (
-    <div className={cn("grid gap-4 md:grid-cols-2 lg:grid-cols-3", className)}>
-      {features.map((feature, index) => {
-        const Icon = icons[feature.icon] ?? Sparkles;
-        const wide = feature.span === "wide";
+    <div className={cn("grid gap-4 sm:grid-cols-2", className)}>
+      {lunarFeatures.map((feature) => {
+        const Icon = icons[feature.icon] ?? Download;
         return (
-          <GlassPanel
+          <Link
             key={feature.title}
-            as="article"
-            onMouseMove={trackGlow}
-            className={cn(
-              "group flex flex-col gap-3 p-6 transition-transform duration-300 hover:-translate-y-1",
-              wide && "md:col-span-2 lg:col-span-2 lg:row-span-1",
-            )}
+            to={feature.to}
+            className="group relative isolate block overflow-hidden rounded-md border border-border bg-card p-6 transition-[border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-candy/50 sm:p-8"
           >
-            {wide ? (
-              <div
-                aria-hidden="true"
-                className="pointer-events-none absolute -top-24 -right-16 size-64 rounded-full bg-[radial-gradient(circle,oklch(0.7_0.24_352_/_28%),transparent_70%)]"
-              />
-            ) : null}
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-              style={{
-                background:
-                  "radial-gradient(220px circle at var(--mx, 50%) var(--my, 50%), oklch(1 0 0 / 7%), transparent 65%)",
-              }}
-            />
-            <span className="grid size-11 place-items-center rounded-2xl border border-border bg-[oklch(1_0_0_/_6%)] text-blush transition-all duration-300 group-hover:scale-110 group-hover:text-candy group-hover:shadow-[0_0_24px_-6px_oklch(0.7_0.24_352_/_60%)]">
-              <Icon className="size-5" aria-hidden="true" />
-            </span>
-            <h3
-              className={cn(
-                "font-display font-bold",
-                wide ? "text-2xl sm:text-3xl" : "text-lg",
-              )}
-            >
-              {feature.title}
-            </h3>
-            <p className="text-sm leading-relaxed text-muted-foreground">{feature.description}</p>
-            {feature.metric ? (
-              <span className="mt-auto w-fit rounded-full border border-border bg-[oklch(1_0_0_/_5%)] px-3 py-1 text-xs font-semibold text-blush">
-                {feature.metric}
-              </span>
-            ) : null}
-            {index === 0 ? (
-              <dl className="mt-2 grid grid-cols-3 gap-3 border-t border-border pt-4">
-                {highlights.map((h) => (
-                  <div key={h.label} className="min-w-0">
-                    <dt className="sr-only">{h.label}</dt>
-                    <dd className="font-display text-lg font-extrabold text-foreground">{h.value}</dd>
-                    <p className="truncate text-[11px] text-muted-foreground">{h.label}</p>
-                  </div>
-                ))}
-              </dl>
-            ) : null}
-          </GlassPanel>
+            <div className="flex h-full min-h-[180px] flex-col justify-between sm:min-h-[220px]">
+              <div className="flex items-start justify-between">
+                <span className="grid size-12 place-items-center rounded-md border border-border bg-secondary text-muted-foreground transition-colors duration-200 group-hover:border-candy/40 group-hover:text-candy sm:size-14">
+                  <Icon className="size-6 sm:size-7" aria-hidden="true" />
+                </span>
+                <ArrowRight
+                  className="size-5 -rotate-45 text-muted-foreground transition-transform duration-200 group-hover:rotate-0 group-hover:text-candy"
+                  aria-hidden="true"
+                />
+              </div>
+              <div className="mt-6">
+                <p className="text-[11px] font-bold tracking-[0.18em] text-candy uppercase">
+                  {feature.eyebrow}
+                </p>
+                <h3 className="mt-1 font-display text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">
+                  {feature.title}
+                </h3>
+                <p className="mt-2 max-w-xs text-sm leading-relaxed text-muted-foreground">
+                  {feature.description}
+                </p>
+              </div>
+            </div>
+          </Link>
         );
       })}
     </div>

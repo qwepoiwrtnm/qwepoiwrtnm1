@@ -11,10 +11,6 @@ interface ServiceState {
   status: ServiceStatus;
 }
 
-/**
- * Reads live data from `downloadMeta.statusApiUrl` when configured.
- * Falls back to the MOCK configuration so the page always renders.
- */
 export function StatusDashboard({ compact = false }: { compact?: boolean }) {
   const [services, setServices] = useState<ServiceState[]>(
     statusServices.map((s) => ({ ...s, status: "operational" as ServiceStatus })),
@@ -64,7 +60,7 @@ export function StatusDashboard({ compact = false }: { compact?: boolean }) {
         <button
           type="button"
           onClick={() => void refresh()}
-          className="inline-flex min-h-11 shrink-0 items-center gap-2 rounded-full border border-border px-4 text-sm font-medium transition-colors hover:bg-secondary"
+          className="inline-flex min-h-11 shrink-0 items-center gap-2 rounded-md border border-border px-4 text-sm font-medium transition-colors hover:bg-secondary"
         >
           <RefreshCw className={loading ? "size-4 animate-spin" : "size-4"} aria-hidden="true" />
           Refresh
@@ -97,7 +93,7 @@ export function StatusDashboard({ compact = false }: { compact?: boolean }) {
           <h3 className="font-display text-lg font-bold">Incident history</h3>
           <ul className="mt-4 space-y-4">
             {incidents.map((incident) => (
-              <li key={incident.title} className="rounded-2xl border border-border p-4">
+              <li key={incident.title} className="rounded-md border border-border p-4">
                 <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
                   <h4 className="font-semibold">{incident.title}</h4>
                   <span className="rounded-full border border-border px-2 py-0.5 text-[11px] text-muted-foreground">

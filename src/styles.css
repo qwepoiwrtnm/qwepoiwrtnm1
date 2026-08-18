@@ -6,17 +6,18 @@
 
 /*
  * Cutie Client <3 — design system.
+ * Monochrome editorial base with a single pink accent.
  * All colors are oklch tokens. Never hardcode colors in components.
  */
 
 @theme inline {
-  --radius-sm: calc(var(--radius) - 6px);
-  --radius-md: calc(var(--radius) - 3px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 6px);
-  --radius-2xl: calc(var(--radius) + 14px);
-  --radius-3xl: calc(var(--radius) + 22px);
-  --radius-4xl: calc(var(--radius) + 34px);
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 2px);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 14px);
+  --radius-4xl: calc(var(--radius) + 22px);
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -39,82 +40,74 @@
   --color-ring: var(--ring);
   --color-ring-offset-background: var(--background);
 
-  --color-plum: var(--plum);
-  --color-plum-deep: var(--plum-deep);
-  --color-rose: var(--rose);
-  --color-blush: var(--blush);
+  /* Single accent — saturated pink, used sparingly */
   --color-candy: var(--candy);
-  --color-lavender: var(--lavender);
-  --color-mint: var(--mint);
   --color-amber-status: var(--amber-status);
 
-  --font-display: "Baloo 2", ui-rounded, system-ui, sans-serif;
-  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 }
 
 :root {
-  --radius: 1rem;
+  --radius: 0.5rem;
 
-  --background: oklch(0.14 0.035 320);
-  --foreground: oklch(0.97 0.008 330);
+  /* True monochrome base */
+  --background: oklch(0.08 0 0);
+  --foreground: oklch(0.98 0 0);
 
-  --card: oklch(0.19 0.04 320);
-  --card-foreground: oklch(0.97 0.008 330);
-  --popover: oklch(0.17 0.04 320);
-  --popover-foreground: oklch(0.97 0.008 330);
+  --card: oklch(0.12 0 0);
+  --card-foreground: oklch(0.98 0 0);
+  --popover: oklch(0.1 0 0);
+  --popover-foreground: oklch(0.98 0 0);
 
-  --primary: oklch(0.68 0.22 350);
-  --primary-foreground: oklch(0.99 0.005 340);
+  --primary: oklch(0.98 0 0);
+  --primary-foreground: oklch(0.08 0 0);
 
-  --secondary: oklch(0.26 0.05 320);
-  --secondary-foreground: oklch(0.96 0.01 330);
+  --secondary: oklch(0.16 0 0);
+  --secondary-foreground: oklch(0.95 0 0);
 
-  --muted: oklch(0.24 0.04 320);
-  --muted-foreground: oklch(0.76 0.03 330);
+  --muted: oklch(0.14 0 0);
+  --muted-foreground: oklch(0.62 0 0);
 
-  --accent: oklch(0.32 0.07 325);
-  --accent-foreground: oklch(0.98 0.008 330);
+  --accent: oklch(0.2 0 0);
+  --accent-foreground: oklch(0.98 0 0);
 
-  --destructive: oklch(0.62 0.21 20);
-  --destructive-foreground: oklch(0.99 0.005 340);
+  --destructive: oklch(0.55 0.2 25);
+  --destructive-foreground: oklch(0.99 0 0);
 
-  --border: oklch(0.99 0.005 340 / 12%);
-  --input: oklch(0.99 0.005 340 / 16%);
-  --ring: oklch(0.74 0.18 350);
+  --border: oklch(1 0 0 / 8%);
+  --input: oklch(1 0 0 / 12%);
+  --ring: var(--candy);
 
-  /* Brand palette */
-  --plum: oklch(0.22 0.05 318);
-  --plum-deep: oklch(0.11 0.03 315);
-  --rose: oklch(0.6 0.16 5);
-  --blush: oklch(0.86 0.07 350);
-  --candy: oklch(0.7 0.24 352);
-  --lavender: oklch(0.78 0.09 305);
-  --mint: oklch(0.83 0.14 165);
+  /* The one accent */
+  --candy: oklch(0.7 0.2 350);
   --amber-status: oklch(0.83 0.15 80);
 
-  /* Gradients & effects */
-  --gradient-candy: linear-gradient(135deg, oklch(0.72 0.24 352), oklch(0.62 0.2 10));
-  --gradient-ambient: radial-gradient(
-      120% 90% at 15% 0%,
-      oklch(0.42 0.16 340 / 45%),
-      transparent 60%
-    ),
-    radial-gradient(100% 80% at 90% 10%, oklch(0.4 0.12 300 / 40%), transparent 65%);
-  --glass-bg: oklch(0.99 0.005 340 / 6%);
-  --glass-border: oklch(0.99 0.005 340 / 14%);
-  --glass-highlight: linear-gradient(
-    180deg,
-    oklch(1 0 0 / 14%),
-    oklch(1 0 0 / 0%) 42%
-  );
-  --shadow-soft: 0 1px 0 0 oklch(1 0 0 / 8%) inset, 0 18px 50px -20px oklch(0.05 0.02 320 / 85%);
-  --shadow-glow: 0 18px 60px -18px oklch(0.68 0.22 350 / 60%);
+  /* Soft shadow for elevation without glow */
+  --shadow-soft: 0 1px 0 0 oklch(1 0 0 / 4%) inset, 0 20px 40px -24px oklch(0 0 0 / 80%);
 }
 
 @layer base {
   * {
     border-color: var(--color-border);
+  }
+
+  /* Pointer cursor on anything clickable */
+  button,
+  a,
+  [role="button"],
+  summary,
+  label[for],
+  select,
+  option,
+  [tabindex]:not([tabindex="-1"]) {
+    cursor: pointer;
+  }
+
+  button:disabled,
+  [aria-disabled="true"] {
+    cursor: not-allowed;
   }
 
   html {
@@ -137,7 +130,8 @@
   }
 
   ::selection {
-    background: oklch(0.7 0.24 352 / 40%);
+    background: oklch(0.7 0.2 350 / 35%);
+    color: oklch(0.98 0 0);
   }
 
   :focus-visible {
@@ -147,26 +141,34 @@
   }
 }
 
+/* Flat surface — replaces the old glass utilities. Solid bg, thin border. */
+@utility surface {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  position: relative;
+}
+
+@utility surface-strong {
+  background-color: var(--popover);
+  border: 1px solid var(--border);
+  position: relative;
+}
+
+/* Kept as no-op aliases so old imports don't break — they now render flat. */
 @utility glass {
-  background-color: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  backdrop-filter: blur(18px) saturate(140%);
-  box-shadow: var(--shadow-soft);
+  background-color: var(--card);
+  border: 1px solid var(--border);
   position: relative;
 }
 
 @utility glass-strong {
-  background-color: oklch(0.16 0.04 320 / 78%);
-  border: 1px solid var(--glass-border);
-  backdrop-filter: blur(22px) saturate(150%);
-  box-shadow: var(--shadow-soft);
+  background-color: var(--popover);
+  border: 1px solid var(--border);
+  position: relative;
 }
 
 @utility text-gradient-candy {
-  background: linear-gradient(100deg, oklch(0.9 0.09 350), oklch(0.72 0.24 352));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--candy);
 }
 
 @utility grain {
@@ -174,44 +176,13 @@
 }
 
 @utility ambient-layer {
-  background-image: var(--gradient-ambient);
-}
-
-@keyframes ambient-drift {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) scale(1);
-    opacity: 0.85;
-  }
-  50% {
-    transform: translate3d(2%, -2%, 0) scale(1.08);
-    opacity: 1;
-  }
-}
-
-@keyframes float-soft {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-8px);
-  }
-}
-
-@keyframes shine {
-  0% {
-    transform: translateX(-120%) skewX(-18deg);
-  }
-  100% {
-    transform: translateX(220%) skewX(-18deg);
-  }
+  background-image: none;
 }
 
 @keyframes rise-in {
   from {
     opacity: 0;
-    transform: translateY(18px);
+    transform: translateY(12px);
   }
   to {
     opacity: 1;
@@ -219,46 +190,46 @@
   }
 }
 
+/* No-op keyframes kept for backward compat — they no longer animate. */
+@keyframes ambient-drift {
+  0%, 100% { transform: none; opacity: 1; }
+  50% { transform: none; opacity: 1; }
+}
+
+@keyframes float-soft {
+  0%, 100% { transform: none; }
+  50% { transform: none; }
+}
+
+@keyframes shine {
+  0% { transform: none; }
+  100% { transform: none; }
+}
+
 @keyframes ken-burns {
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(1.05);
-  }
+  from { transform: none; }
+  to { transform: none; }
 }
 
 @keyframes particle-drift {
-  0% {
-    transform: translateY(0) translateX(0);
-    opacity: 0;
-  }
-  12% {
-    opacity: 0.7;
-  }
-  88% {
-    opacity: 0.5;
-  }
-  100% {
-    transform: translateY(-120px) translateX(18px);
-    opacity: 0;
-  }
+  0% { opacity: 0; }
+  100% { opacity: 0; }
 }
 
 @utility animate-ambient {
-  animation: ambient-drift 22s ease-in-out infinite;
+  animation: none;
 }
 
 @utility animate-float-soft {
-  animation: float-soft 7s ease-in-out infinite;
+  animation: none;
 }
 
 @utility animate-rise-in {
-  animation: rise-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: rise-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 @utility animate-ken-burns {
-  animation: ken-burns 10s ease-out both;
+  animation: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
